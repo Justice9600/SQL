@@ -1,0 +1,29 @@
+--Create a restaurant food menu database
+
+CREATE TABLE food_menu (id INTEGER PRIMARY KEY, item TEXT, price_by_dollar INTEGER, calories INTEGER, gf TEXT);
+
+INSERT INTO food_menu VALUES(1, "sandwich", 6, 540, "no");
+INSERT INTO food_menu VALUES(2, "burger", 9,700, "no");
+INSERT INTO food_menu VALUES(3, "fries", 4, 330, "yes");
+INSERT INTO food_menu VALUES(4, "wings", 12, 890, "no");
+INSERT INTO food_menu VALUES(5, "salad", 10, 300, "yes");
+INSERT INTO food_menu VALUES(6, "taco", 4, 120, "no");
+INSERT INTO food_menu VALUES(7, "rice", 3, 350, "no");
+INSERT INTO food_menu VALUES(8, "steak", 25, 520, "yes"); 
+INSERT INTO food_menu VALUES(9, "salmon", 23, 240, "yes");
+INSERT INTO food_menu VALUES(10, "pie", 11, 1020, "no");
+INSERT INTO food_menu VALUES(11, "shrimp", 18, 415, "yes");
+INSERT INTO food_menu VALUES(12, "wrap", 8, 620, "no");
+INSERT INTO food_menu VALUES(13, "sub", 7, 710, "no");
+INSERT INTO food_menu VALUES(14, "lobster", 30, 570, "yes");
+INSERT INTO food_menu VALUES(15, "ribs", 19, 880, "yes");
+
+--display the database ordered by price from lowest to highest.
+SELECT * FROM food_menu;
+SELECT * FROM food_menu ORDER BY price_by_dollar asc;
+
+--display items that are equivlant to or less than 10 dollaras on the menu. Display database ordered from lowest to highest
+SELECT * FROM food_menu WHERE price_by_dollar <= 10 ORDER BY price_by_dollar asc;
+
+-- what is the total of all items on the menu?
+SELECT SUM(price_by_dollar) FROM food_menu
