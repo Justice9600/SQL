@@ -1,0 +1,43 @@
+/* For this project I have created one table about about a popular podcast crew and their twitter handles. I then created a second table to show what their role in the podcast is. */
+CREATE TABLE H3podcast_Crew (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, twitter_handle TEXT);
+
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Ethan Klein", "h3h3productions");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Hila Klein", "HilaKleinH3");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Dan Swerdlove", "swerdlove");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Ian Slater", "908ian");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Zach Louis", "zachthesoundlad");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Abdullah Ayad", "Starkilla");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Lena Ayad", "LenaAyad");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Olivia Lopes", "olivialopes");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Love", "love_bot00");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Cameron Grant", "Cam_Grants");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Sam Temple", "samtemp1e");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Hasan Piker", "hasanabi");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Donna Klein", "donnaklein628");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Gary Klein", "garyklein25");
+INSERT INTO H3podcast_Crew(name, twitter_handle) VALUES ("Trisha Paytas", "trishapaytas");
+
+CREATE TABLE Crew_member_job_titles (id INTEGER PRIMARY KEY AUTOINCREMENT, occupation TEXT, start_year INTEGER);
+
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Podcast Host, CEO of Ted Entertainment INC.", 2013);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Podcast Host, CEO of Teddy Fresh", 2013);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Producer", 2017);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Executive Producer", 2017);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Audio Engineer", 2017);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Studio Manager", 2020);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Executive Assistant", 2020);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Researcher, Production Assistant", 2021);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Social Media Manager", 2020);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Editor", 2019);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Props Artist", 2021);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Leftovers Cohost", 2021);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Families Cohost", 2022);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Families Cohost", 2022);
+INSERT INTO Crew_member_job_titles(occupation, start_year) VALUES ("Frenemies Host", 2020);
+
+
+/*The following SQL was written to join both tables to display the names of the podcast members and their role on the crew. Then ordering them by crew members who have worked on the podcast longest to the newest crew members*/
+SELECT H3podcast_Crew.name, Crew_member_job_titles.occupation 
+FROM H3podcast_Crew JOIN Crew_member_job_titles 
+ON H3podcast_Crew.id = Crew_member_job_titles.id 
+ORDER BY start_year asc;
