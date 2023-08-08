@@ -1,6 +1,7 @@
 # This project was written using the PostgreSQL dialect to reveal different observations about TV and Movie content available on Netflix.
 # The project utilized data from the Netflix database stored at http://sqlfiddle.com/#!17/7dae0/16/0. The follwoing two Netflix datasets are from that database:
 
+
 CREATE TABLE netflix_titles_info
     ("show_id" varchar(5), "type" varchar(7), "title" varchar(58), "country" varchar(74), "date_added" timestamp, "release_year" int, "rating" varchar(5), "duration" varchar(9), "listed_in" varchar(74))
 ;
