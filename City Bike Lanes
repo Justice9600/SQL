@@ -1,5 +1,6 @@
 #In this project query the table below to demonstrate how I would use CTEs and Window functions to solve unique problems. 
 
+
 CREATE TABLE BIT_DB.CityBikeLanes (
 id integer primary key,
 year_installed year not null,
