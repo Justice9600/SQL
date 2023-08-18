@@ -1,0 +1,131 @@
+#For this project I utilized a dataset called chinook, which represents a digital media store and includes tables for artists, albums, media tracks, invoices, and customers.
+#I then used SQLLite to query the data and display information I believe to be interesting or useful. 
+
+
+#1. Displaying Customers (their full names, customer ID, and country) who are not
+ in the US.
+
+ SELECT Customerid, Firstname, Lastname, Country
+ FROM customers WHERE Country <> 'USA';
+ 
+#2. Displaying only the Customers from USA.
+
+SELECT customerid, FirstName, LastName
+FROM customers 
+WHERE country = 'USA';
+
+#3. Displaying Invoices of customers who are from Canada with the customer's full name, Invoice ID, Date of the invoice, 
+and billing country.
+
+SELECT c.FirstName, c.LastName, i.Invoiceid, i.Invoicedate, i.billingcountry
+FROM chinook.customers  c 
+INNER JOIN chinook.invoices i 
+WHERE c.customerid = i.customerid
+AND country = 'Canada';
+
+#4. Listing the employees, their job title, who they report to, and the title of who they report to.
+
+SELECT e.FirstName, e.LastName, e.title as JobTitle ,
+b.FirstName as Supervisor_FirstName,
+b.LastName as Supervisor_LastName, 
+b.title as Supervisor_JobTitle
+FROM employees e
+JOIN employees b
+ON e.ReportsTo = b.employeeid;
+
+#5.Displaying the Employees who are Sales Agents.
+SELECT FirstName, LastName, Title
+FROM chinook.employees WHERE title = 'Sales Support Agent';
+
+#6.Displaying total sales for the year, 2009.
+
+SELECT SUM(Total) as Total_Sales
+FROM chinook.invoices;
+
+#7.Displaying the total sales made by each sales agent.
+
+SELECT e.FirstName, e.LastName, ROUND(SUM(i.total)) as Total_Sales
+from employees e
+JOIN customers c 
+ON e.employeeid =  c.supportrepid
+JOIN invoices i 
+ON c.customerid = i.customerid
+WHERE e.title = 'Sales Support Agent'
+group by e.FirstName ;
+
+
+#8. Ranking the sales agents by sales agents with the highest sales to the lowest in sales.
+
+SELECT e.FirstName, e.LastName, ROUND(SUM(i.total)) as Total_Sales
+from employees e
+JOIN customers c 
+ON e.employeeid =  c.supportrepid
+JOIN invoices i 
+ON c.customerid = i.customerid
+WHERE e.title = 'Sales Support Agent'
+group by e.FirstName 
+Order by Total_Sales desc;
+
+#9. Displaying Sales agents and their total sales.
+Then Adding a new column to display what sales agents met the sales goals, exceeded sales goals, or missed sales goals*/
+
+SELECT e.FirstName, e.LastName, ROUND(SUM(i.total)) as Total_Sales,
+CASE
+WHEN ROUND(SUM(i.total)) > 800 THEN "Exceeds goals"
+WHEN ROUND(SUM(i.total))> 700 THEN "Meets goals"
+ELSE "Missed goals" 
+END as "goals"
+from employees e
+JOIN customers c 
+ON e.employeeid =  c.supportrepid
+JOIN invoices i 
+ON c.customerid = i.customerid
+WHERE e.title = 'Sales Support Agent'
+group by e.FirstName;
+
+#10. Listing the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+
+SELECT c.FirstName, c.LastName, c.Country, 
+i.total,
+e.FirstName as SalesRep_FirstName, e.LastName as SalesRep_LastName
+FROM employees e
+JOIN customers c
+ON c.SupportRepId = e.EmployeeId
+JOIN invoices i 
+ON i.customerid = c.customerid;
+
+#11. Listing the total spent by each customer, Customer name, Country, and Sales Agent name for all invoices and customers.
+
+SELECT c.FirstName, c.LastName, c.Country, 
+SUM(i.total) as Total_Spent, 
+e.FirstName as SalesRep_FirstName, e.LastName as SalesRep_LastName
+FROM employees e
+JOIN customers c
+ON c.SupportRepId = e.EmployeeId
+JOIN invoices i 
+ON i.customerid = c.customerid
+GROUP BY c.FirstName;
+
+#12. Displaying all albums with their artist.
+SELECT album.title as album_title, artist.name as artist
+FROM albums album
+JOIN artists artist 
+ON album.artistid = artist.artistid;
+/*List all the Tracks with their Album name, Media type, and Genre.*/
+SELECT track.name as track_name, 
+album.title as album_title, 
+media.name as media_type, 
+genre.name as genre
+from tracks track
+JOIN albums album
+ON track.albumid = album.albumid
+JOIN genres genre 
+ON track.genreid = genre.GenreId
+JOIN media_types media
+ON track.mediatypeid = media.mediatypeid;
+
+#13. Listing the purchased track names with the invoice line ID.
+SELECT track.name as track_name, InIt.invoicelineid as Invoice_LineId
+from invoice_items InIt
+JOIN tracks track
+ON track.trackid = InIt.trackid
