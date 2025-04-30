@@ -59,3 +59,13 @@ WHERE item_name = "Air Purifier";
 
 SELECT item_name, stock_quantity
 FROM superstore;
+
+7. Displaying the total value of inventory per category. 
+SELECT category, SUM(stock_quantity*price) as VALUE
+FROM superstore 
+GROUP BY category; 
+
+8. Displaying how many "Smart LED TV' are in stock.
+SELECT item_name, stock_quantity
+FROM superstore
+WHERE item_name = 'Smart LED TV';
